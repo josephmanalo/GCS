@@ -10,8 +10,6 @@ def Count_ADA(session):
     All these parameters GBU ID, Group ID, Entity ID, Corp ID and Customer ID is also available in PCC_Account table.
     """
 
-
-    #PCC_Account.GBU
     gbu_data = (
         session.query(
             PCC_Account.GBU_ID,
@@ -21,7 +19,6 @@ def Count_ADA(session):
         .group_by(PCC_Account.GBU_ID, PCC_Account.pay_means)
     )
 
-    #PCC_Account.Custom_Group
     grp_data = (
         session.query(
             PCC_Account.Group_ID,
@@ -31,7 +28,6 @@ def Count_ADA(session):
         .group_by(PCC_Account.Group_ID, PCC_Account.pay_means)
     )
 
-    #PCC_Account.Legal_Entitiy
     leg_data = (
         session.query(
             PCC_Account.Entity_ID,
@@ -41,7 +37,6 @@ def Count_ADA(session):
         .group_by(PCC_Account.Entity_ID, PCC_Account.pay_means)
     )
 
-    #PCC_Account.Corp_ID
     crp_data = (
         session.query(
             PCC_Account.Corp_ID,
@@ -51,7 +46,6 @@ def Count_ADA(session):
         .group_by(PCC_Account.Corp_ID, PCC_Account.pay_means)
     )
 
-    #PCC_Account.Customer_Id
     cst_data = (
         session.query(
             PCC_Account.Customer_ID,
@@ -61,8 +55,6 @@ def Count_ADA(session):
         .group_by(PCC_Account.Customer_ID, PCC_Account.pay_means)
     )
 
-
-    # Insert into DB 
     for i in gbu_data:
         session.add(PCC_GBUAGG_DATA(GBU_ID=i.GBU_ID,CNT_ADA_ARR=i.Count))
 

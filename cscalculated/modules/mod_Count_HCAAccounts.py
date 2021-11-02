@@ -8,7 +8,6 @@ def Count_HCAAccounts(session):
     All these parameters GBU ID, Group ID, Entity ID, Corp ID and Customer ID is also available in PCC_Account table.
     """
 
-    #PCC_Account.GBU
     gbu_data = (
         session.query(
             PCC_Account.GBU_ID,
@@ -18,7 +17,6 @@ def Count_HCAAccounts(session):
         .group_by(PCC_Account.GBU_ID, PCC_Account.on_hold_flag)
     )
 
-    #PCC_Account.Custom_Group
     grp_data = (
         session.query(
             PCC_Account.Group_ID,
@@ -28,7 +26,6 @@ def Count_HCAAccounts(session):
         .group_by(PCC_Account.Group_ID, PCC_Account.on_hold_flag)
     )
 
-    #PCC_Account.Legal_Entitiy
     leg_data = (
         session.query(
             PCC_Account.Entity_ID,
@@ -38,7 +35,6 @@ def Count_HCAAccounts(session):
         .group_by(PCC_Account.Entity_ID, PCC_Account.on_hold_flag)
     )
 
-    #PCC_Account.Corp_ID
     crp_data = (
         session.query(
             PCC_Account.Corp_ID,
@@ -48,7 +44,6 @@ def Count_HCAAccounts(session):
         .group_by(PCC_Account.Corp_ID, PCC_Account.on_hold_flag)
     )
 
-    #PCC_Account.Customer_Id
     cst_data = (
         session.query(
             PCC_Account.Customer_ID,
@@ -67,10 +62,8 @@ def Count_HCAAccounts(session):
     for i in leg_data:
         session.add(PCC_ENTITYAGG_DATA(Entity_ID=i.Entity_ID, CNT_HCA_ACC=i.Count))
  
-
     for i in crp_data:
         session.add(PCC_CORPAGG_DATA(Corp_ID=i.Corp_ID, CNT_HCA_ACC=i.Count))
-
         
     for i in cst_data:
         session.add(PCC_CUSTAGG_DATA(Customer_ID=i.Customer_ID, CNT_HCA_ACC=i.Count))

@@ -9,7 +9,6 @@ def CountActiveAccounts(session):
     All these parameters GBU ID, Group ID, Entity ID, Corp ID and Customer ID is also available in PCC_Account table.
     """
 
-    #PCC_Account.GBU
     gbu_data = (
         session.query(
             PCC_Account.GBU_ID,
@@ -19,7 +18,6 @@ def CountActiveAccounts(session):
         .group_by(PCC_Account.GBU_ID, PCC_Account.account_status)
     )
 
-    #PCC_Account.Custom_Group
     grp_data = (
         session.query(
             PCC_Account.Group_ID,
@@ -29,7 +27,6 @@ def CountActiveAccounts(session):
         .group_by(PCC_Account.Group_ID, PCC_Account.account_status)
     )
 
-    #PCC_Account.Legal_Entitiy
     leg_data = (
         session.query(
             PCC_Account.Entity_ID,
@@ -39,7 +36,6 @@ def CountActiveAccounts(session):
         .group_by(PCC_Account.Entity_ID, PCC_Account.account_status)
     )
 
-    #PCC_Account.Corp_ID
     crp_data = (
         session.query(
             PCC_Account.Corp_ID,
@@ -49,7 +45,6 @@ def CountActiveAccounts(session):
         .group_by(PCC_Account.Corp_ID, PCC_Account.account_status)
     )
 
-    #PCC_Account.Customer_Id
     cst_data = (
         session.query(
             PCC_Account.Customer_ID,

@@ -10,7 +10,6 @@ def Count_VIP(session):
     All these parameters GBU ID, Group ID, Entity ID, Corp ID and Customer ID is also available in PCC_Account table.
     """
 
-    #PCC_Exception.GBU
     gbu_data = (
         session.query(
             PCC_Exception.GBU_ID,
@@ -20,7 +19,6 @@ def Count_VIP(session):
         .group_by(PCC_Exception.GBU_ID, PCC_Exception.vip_flag)
     )
 
-    #PCC_Exception.Custom_Group
     grp_data = (
         session.query(
             PCC_Exception.Group_ID,
@@ -30,7 +28,6 @@ def Count_VIP(session):
         .group_by(PCC_Exception.Group_ID, PCC_Exception.vip_flag)
     )
 
-    #PCC_Exception.Legal_Entitiy
     leg_data = (
         session.query(
             PCC_Exception.Entity_ID,
@@ -40,7 +37,6 @@ def Count_VIP(session):
         .group_by(PCC_Exception.Entity_ID, PCC_Exception.vip_flag)
     )
 
-    #PCC_Exception.Corp_ID
     crp_data = (
         session.query(
             PCC_Exception.Corp_ID,
@@ -50,7 +46,6 @@ def Count_VIP(session):
         .group_by(PCC_Exception.Corp_ID, PCC_Exception.vip_flag)
     )
 
-    #PCC_Exception.Customer_Id
     cst_data = (
         session.query(
             PCC_Exception.Customer_ID,
@@ -60,8 +55,6 @@ def Count_VIP(session):
         .group_by(PCC_Exception.Customer_ID, PCC_Exception.vip_flag)
     )
 
-
-    # Insert into DB 
     for i in gbu_data:
         session.add(PCC_GBUAGG_DATA(GBU_ID=i.GBU_ID, CNT_VIP=i.Count))
 
