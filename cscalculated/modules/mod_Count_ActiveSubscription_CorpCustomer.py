@@ -1,23 +1,23 @@
 from models import *
 from sqlalchemy.sql import func
-from sqlalchemy.orm import sessionmaker
 from traceback import print_exc
 
 
-def Count_ActvSubs_CorpCust(session):
+def Count_ActiveSubscription_CorpCustomer(session):
     """
-    count of subscriptions where PCC_Subscription.SUBSCRIPTION_STATUS = 'Active' for 
+    TODO same logic with indivcust but has gbu and group
+    count of subscriptions where PCC_Subscription.SUBSCRIPTION_STATUS = 'Active' for
     Grouped at each level GBU, Custom Group, Legal Entity, Corp ID, Customer ID.
     All these parameters GBU ID, Group ID, Entity ID, Corp ID and Customer ID is also available in PCC_Account table.
     """
-
+    
     try:
         gbu_data = (
             session.query(
                 PCC_Subscription.GBU_ID,
-                func.count(PCC_Subscription.subscription_status).label("Count")
+                func.count(PCC_Subscription.subscription_status).label("Count"),
             )
-            .filter(PCC_Subscription.subscription_status == 'Active')
+            .filter(PCC_Subscription.subscription_status == "Active")
             .group_by(PCC_Subscription.GBU_ID, PCC_Subscription.subscription_status)
         )
 
@@ -25,78 +25,83 @@ def Count_ActvSubs_CorpCust(session):
             session.add(PCC_GBUAGG_DATA(GBU_ID=i.GBU_ID, CNT_ACTIVESUBSC_CC=i.Count))
 
     except Exception:
-        print_exc()
+        print_exc
 
     try:
         grp_data = (
             session.query(
                 PCC_Subscription.Group_ID,
-                func.count(PCC_Subscription.subscription_status).label("Count")
+                func.count(PCC_Subscription.subscription_status).label("Count"),
             )
-            .filter(PCC_Subscription.subscription_status == 'Active')
+            .filter(PCC_Subscription.subscription_status == "Active")
             .group_by(PCC_Subscription.Group_ID, PCC_Subscription.subscription_status)
         )
 
         for i in grp_data:
             session.add(PCC_COMPGAGG_DATA(Group_ID=i.Group_ID, CNT_ACTIVESUBSC_CC=i.Count))
- 
+
     except Exception:
-        print_exc()
+        print_exc
+
 
     try:
         leg_data = (
             session.query(
                 PCC_Subscription.Entity_ID,
-                func.count(PCC_Subscription.subscription_status).label("Count")
+                func.count(PCC_Subscription.subscription_status).label("Count"),
             )
-            .filter(PCC_Subscription.subscription_status == 'Active')
+            .filter(PCC_Subscription.subscription_status == "Active")
             .group_by(PCC_Subscription.Entity_ID, PCC_Subscription.subscription_status)
         )
 
         for i in leg_data:
             session.add(PCC_ENTITYAGG_DATA(Entity_ID=i.Entity_ID, CNT_ACTIVESUBSC_CC=i.Count))
-     
+
     except Exception:
-        print_exc()
+        print_exc
 
 
     try:
         crp_data = (
             session.query(
                 PCC_Subscription.Corp_ID,
-                func.count(PCC_Subscription.subscription_status).label("Count")
+                func.count(PCC_Subscription.subscription_status).label("Count"),
             )
-            .filter(PCC_Subscription.subscription_status == 'Active')
+            .filter(PCC_Subscription.subscription_status == "Active")
             .group_by(PCC_Subscription.Corp_ID, PCC_Subscription.subscription_status)
         )
 
         for i in crp_data:
             session.add(PCC_CORPAGG_DATA(Corp_ID=i.Corp_ID, CNT_ACTIVESUBSC_CC=i.Count))
- 
+
     except Exception:
-        print_exc()
+        print_exc
 
     try:
         cst_data = (
             session.query(
                 PCC_Subscription.Customer_ID,
-                func.count(PCC_Subscription.subscription_status).label("Count")
+                func.count(PCC_Subscription.subscription_status).label("Count"),
             )
-            .filter(PCC_Subscription.subscription_status == 'Active')
+            .filter(PCC_Subscription.subscription_status == "Active")
             .group_by(PCC_Subscription.Customer_ID, PCC_Subscription.subscription_status)
         )
 
         for i in cst_data:
             session.add(PCC_CUSTAGG_DATA(Customer_ID=i.Customer_ID, CNT_ACTIVESUBSC_CC=i.Count))
-     
-    except Exception:
-        print_exc()
 
+    except Exception:
+        print_exc
 
     session.commit()
 
 
+        
 
 
 
+        
 
+        
+
+        
