@@ -41,26 +41,21 @@ def Bucket_Amount(session):
                 group[key] = value[:10]
 
     for key,value in gbu_dict.items():
-        new_record = PCC_GBUAGG_DATA(GBU_ID=key)
-        new_record(**{f"Bucket{x+1}_Amount":v for x,v in enumerate(value)})
+        new_record = PCC_GBUAGG_DATA(GBU_ID=key,**{f"BUCKET{x+1}_AMOUNT":v for x,v in enumerate(value)})
         session.add(new_record)
 
     for key,value in group_dict.items():
-        new_record = PCC_COMPGAGG_DATA(Group_ID=key)
-        new_record(**{f"Bucket{x+1}_Amount":v for x,v in enumerate(value)})
+        new_record = PCC_COMPGAGG_DATA(Group_ID=key,**{f"BUCKET{x+1}_AMOUNT":v for x,v in enumerate(value)})
         session.add(new_record)
             
     for key,value in entity_dict.items():
-        new_record = PCC_ENTITYAGG_DATA(Entity_ID=key)
-        new_record(**{f"Bucket{x+1}_Amount":v for x,v in enumerate(value)})
+        new_record = PCC_ENTITYAGG_DATA(Entity_ID=key,**{f"BUCKET{x+1}_AMOUNT":v for x,v in enumerate(value)})
         session.add(new_record)    
 
     for key,value in corp_dict.items():
-        new_record = PCC_CORPAGG_DATA(Corp_ID=key)
-        new_record(**{f"Bucket{x+1}_Amount":v for x,v in enumerate(value)})
+        new_record = PCC_CORPAGG_DATA(Corp_ID=key,**{f"BUCKET{x+1}_AMOUNT":v for x,v in enumerate(value)})
         session.add(new_record)    
 
     for key,value in cust_dict.items():
-        new_record = PCC_CUSTAGG_DATA(Customer_ID=key)
-        new_record(**{f"Bucket{x+1}_Amount":v for x,v in enumerate(value)})
+        new_record = PCC_CUSTAGG_DATA(Customer_ID=key,**{f"BUCKET{x+1}_AMOUNT":v for x,v in enumerate(value)})
         session.add(new_record)

@@ -66,8 +66,7 @@ class CalculatedFields(Enum):
 
 def main():
     
-    # field_id = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
-    field_id = [21]
+    field_id = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
 
     for i in field_id:
         if i in CalculatedFields._value2member_map_:
