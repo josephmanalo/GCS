@@ -95,5 +95,3 @@ def TotalAccount_ForTermination(session):
         print_exc()
 
     session.commit()
-
-#test
